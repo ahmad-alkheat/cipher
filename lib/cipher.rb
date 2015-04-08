@@ -9,7 +9,7 @@ module Cipher
     end
 
     def strip
-      self.message = message.gsub!(/\W/, '')
+      self.message = message.gsub!(/\W+/, '')
     end
   end
 end
