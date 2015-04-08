@@ -3,8 +3,9 @@ require "cipher/version"
 module Cipher
   class Solitaire
     attr_accessor :message
+    ALPHABET = ('A'..'Z').to_a
 
-    def initialize message, task
+    def initialize message
       self.message = message
     end
 
@@ -14,6 +15,16 @@ module Cipher
 
     def upcase_and_group_in_5
       self.message = message.upcase.scan(/...../).join(' ')
+    end
+
+    def to_numbers
+      numbers = []
+      self.message.each_char do |char|
+        if char != ' '
+          numbers << ALPHABET.index(char) + 1
+        end
+      end
+      numbers
     end
   end
 end
