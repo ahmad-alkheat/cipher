@@ -1,4 +1,5 @@
 require "cipher/version"
+require 'cipher/keystream'
 
 module Cipher
   class Solitaire

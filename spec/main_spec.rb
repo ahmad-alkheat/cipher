@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Cipher do
+describe Cipher::Solitaire do
   message = "Code in Ruby, live longer!"
   let (:solitaire) { Cipher::Solitaire.new message}
   context 'initialize' do
