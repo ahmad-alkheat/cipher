@@ -2,30 +2,34 @@ require "cipher/version"
 require 'cipher/keystream'
 
 module Cipher
+  ALPHABET = ('A'..'Z').to_a
+
   class Solitaire
     attr_accessor :message
-    ALPHABET = ('A'..'Z').to_a
 
     def initialize message
-      self.message = message
+      @message = message
     end
 
-    def strip
-      self.message = message.gsub!(/\W+/, '')
-    end
 
-    def upcase_and_group_in_5
-      self.message = message.upcase.scan(/...../).join(' ')
-    end
-
-    def to_numbers
-      numbers = []
-      self.message.each_char do |char|
-        if char != ' '
-          numbers << ALPHABET.index(char) + 1
-        end
+    private 
+      def strip
+        @message = @message.gsub!(/\W+/, '')
       end
-      numbers
-    end
+
+      def upcase_and_group_in_5
+        @message = @message.upcase.scan(/...../).join(' ')
+      end
+
+      def to_numbers
+        numbers = []
+        @message.each_char do |char|
+          if char != ' '
+            numbers << Cipher::ALPHABET.index(char) + 1
+          end
+        end
+        numbers
+      end
+
   end
 end
