@@ -7,6 +7,7 @@ describe Cipher::KeyStream do
   end
 
   context 'prepare the deck' do
+
     it 'moves the A joker one step up' do
       @key.deck = [ 1, 2, 3, 'B', 'A' ]
       expect(@key.move_joker_A).to eq([1,'A',2,3,'B'])
@@ -35,6 +36,9 @@ describe Cipher::KeyStream do
     it 'outputs the next keystream for the message' do
       expect(@key.convert_to_letter(4)).to eq("D") 
     end
+  end
+
+  context 'outputs a new message' do 
 
     it 'generates a keystream message for the original message' do
       expect(@key.key_stream_message).to eq('DWJXH YRFDG TMSHP UURXJ')

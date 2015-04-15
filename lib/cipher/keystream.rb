@@ -5,6 +5,7 @@ module Cipher
 
     def initialize message
       @deck = (1..52).to_a + ['A', 'B']
+      @key_stream_message = []
       generate message
     end
 
@@ -58,7 +59,6 @@ module Cipher
     end
 
     def generate message
-      @key_stream_message = []
       n = message.gsub(" ","").length
       while(@key_stream_message.length < n) 
         move_joker_A 
@@ -69,7 +69,7 @@ module Cipher
         c = convert_to_letter index
         @key_stream_message << c if c
       end
-      @key_stream_message.join("").scan(/...../).join(" ")
+      @key_stream_message = @key_stream_message.join("").scan(/...../).join(" ")
     end
 
   end

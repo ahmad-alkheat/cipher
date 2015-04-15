@@ -21,6 +21,11 @@ module Cipher
         @message = @message.upcase.scan(/...../).join(' ')
       end
 
+      def generate_stream_message
+        @key = Cipher::KeyStream.new @message
+        @key.key_stream_message
+      end
+
       def to_numbers
         numbers = []
         @message.each_char do |char|
