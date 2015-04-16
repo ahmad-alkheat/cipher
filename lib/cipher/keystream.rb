@@ -13,7 +13,7 @@ module Cipher
       if @deck.index('A') == @deck.length - 1
         @deck.insert(1, @deck.delete_at(@deck.index(@deck.last)))
       else
-        index = @deck.index("A")
+        index = @deck.index('A')
         @deck[index], @deck[index+1] = @deck[index+1], @deck[index]
       end
     end
