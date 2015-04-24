@@ -10,28 +10,16 @@ module Cipher
     end
 
     def move_joker_A
-      if @deck.index('A') == @deck.length - 1
-        @deck.insert(1, @deck.delete_at(@deck.index(@deck.last)))
-      else
-        index = @deck.index('A')
-        @deck[index], @deck[index+1] = @deck[index+1], @deck[index]
-      end
+      move_joker 'A',1
     end
 
     def move_joker_B 
-      if @deck.index('B') == @deck.length - 1
-        @deck.insert(2, @deck.delete_at(@deck.index(@deck.last)))
-      elsif @deck.index('B') == @deck.length - 2
-        @deck.insert(1, @deck.delete_at(@deck.index(deck[-2])))
-      else
-        index = @deck.index('B')
-        @deck.insert(index + 2, @deck.delete_at(@deck.index(@deck[index])))
-      end
+      move_joker 'B',2
     end
 
     def triple_cut
-      first_joker_index = @deck.index { |x| x == 'A' || x == 'B' }
-      second_joker_index = @deck.index { |x| (x == 'A' || x == 'B') && x != @deck[first_joker_index] }
+      first_joker_index = @deck.index { |x| is_joker x }
+      second_joker_index = @deck.index { |x| (is_joker x) && x != @deck[first_joker_index] }
       first_part = @deck[0..first_joker_index-1]
       second_part = @deck[second_joker_index + 1.. @deck.length]
       @deck = @deck[first_joker_index..second_joker_index]
@@ -40,7 +28,7 @@ module Cipher
 
     def count_cut
       identifier = @deck.last
-      return @deck if identifier == 'A' || identifier == 'B' || identifier == 0
+      return @deck if is_joker identifier || identifier == 0
       first_part = @deck[0..identifier-1]
       second_part = @deck[identifier..@deck.length-2]
       @deck = second_part + first_part + [identifier]
@@ -48,12 +36,12 @@ module Cipher
 
     def find_output_card
       top = @deck.first
-      top = 53 if top == 'A' || top == 'B'
+      top = 53 if is_joker top
       @deck[top]
     end
 
     def convert_to_letter index
-      return nil if index.instance_of? String
+      return nil if is_joker index
       index = index - 26 if index > 26
       Cipher::ALPHABET[index-1]
     end
@@ -71,6 +59,18 @@ module Cipher
       end
       @key_stream_message = @key_stream_message.join("").scan(/...../).join(" ")
     end
+
+    private
+
+      def move_joker(letter, step)
+        new_position = (@deck.index(letter) + step) % @deck.length
+        new_position = 1 if new_position.zero?
+        @deck.insert(new_position,  @deck.delete(letter))
+      end
+
+      def is_joker card
+        card == 'A' || card == 'B'
+      end
 
   end
 end
