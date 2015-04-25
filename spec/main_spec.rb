@@ -35,10 +35,14 @@ describe Cipher::Solitaire do
       numbers = [3, 15, 4, 5, 9, 14, 18, 21, 2, 25, 12, 9, 22, 5, 12, 15, 14, 7, 5, 18]
       expect(obj.send(:to_numbers,obj.message)).to eq numbers
     end
+
+    it 'adds the numbers of the original message + the keystream message' do
+      nums1 = [1,2,3]
+      nums2 = [4,5,6]
+      expect(obj.send(:add_numbers, nums1, nums2)).to eq [5,7,9]
+    end
   end
 
-  it 'converts numbers into equivalent characters' do 
-    expect(obj.to_chars).to eq 'GLNCQ MJAFF FVOMB JIYCB'
-  end
+
 
 end

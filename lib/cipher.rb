@@ -36,9 +36,7 @@ module Cipher
         numbers
       end
 
-      def add_numbers
-        original = to_numbers @message
-        keystream = to_numbers @key.key_stream_message
+      def add_numbers original, keystream
         sum = []
         (0..original.length-1).each do |i|
           sum << original[i] + keystream[i]
