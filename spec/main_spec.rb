@@ -38,8 +38,21 @@ describe Cipher::Solitaire do
 
     it 'adds the numbers of the original message + the keystream message' do
       nums1 = [1,2,3]
-      nums2 = [4,5,6]
-      expect(obj.send(:add_numbers, nums1, nums2)).to eq [5,7,9]
+      nums2 = [4,5,24]
+      expect(obj.send(:add_numbers, nums1, nums2)).to eq [5,7,1]
+    end
+  end
+
+  it 'converts numbers into equivalent letter' do 
+    nums = [2,5,3,3,4]
+    expect(obj.send(:to_chars, nums)).to eq "BECCD"
+  end
+
+  context 'it encrypts a full message. YEAH!' do
+    it 'uses the encrypt method to piece together all the pieces' do
+      s = Cipher::Solitaire.new 'Code in Ruby, live longer!'
+      s.encrypt
+      expect(s.message).to eq 'GLNCQ MJAFF FVOMB JIYCB'
     end
   end
 
