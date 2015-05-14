@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Cipher::Solitaire do
 
   message = 'Code in Ruby, live longer!'
+  short_message = "HITHERE"
   let (:solitaire) { Cipher::Solitaire.new message}
+  let (:solitaire2) { Cipher::Solitaire.new short_message }
 
   msg2 = 'CODEI NRUBY LIVEL ONGER'
   let (:obj) { Cipher::Solitaire.new msg2 }
@@ -23,6 +25,8 @@ describe Cipher::Solitaire do
 
     it 'upcases all letter and group them in groups of five' do 
       expect(solitaire.send(:upcase_and_group_in_5)).to eq 'CODEI NRUBY LIVEL ONGER'
+      expect(solitaire2.send(:upcase_and_group_in_5)).to eq 'HITHE REXXX'
+
     end
   end
 

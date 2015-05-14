@@ -28,7 +28,8 @@ module Cipher
       end
 
       def upcase_and_group_in_5
-        @message = @message.upcase.scan(/...../).join(' ')
+        @message = @message.upcase + 'X' * ((5 - @message.size % 5 ) % 5 )  #second % for 0 length message
+        @message.scan(/...../).join(' ')
       end
 
       def generate_stream_message
@@ -63,7 +64,5 @@ module Cipher
         @message = chars.join('').scan(/...../).join(' ')
       end
 
-
-      
   end
 end
